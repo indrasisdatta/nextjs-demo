@@ -39,6 +39,16 @@ export default function RootLayout({ children }) {
                       To do
                     </Link>
                   </li>
+                  <li>
+                    <Link href="/login" className="hover:text-gray-300">
+                      Login
+                    </Link>
+                  </li>
+                  <li>
+                    <Link href="/signup" className="hover:text-gray-300">
+                      Sign up
+                    </Link>
+                  </li>
                 </ul>
               </nav>
             </div>
