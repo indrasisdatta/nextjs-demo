@@ -3,7 +3,7 @@ import { NextResponse } from "next/server";
 export const GET = () => {
   try {
     const response = NextResponse.json({
-      stats: 0,
+      status: 1,
       msg: "Logout success",
     });
     response.cookies.set("token", "", {

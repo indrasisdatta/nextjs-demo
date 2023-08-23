@@ -67,9 +67,7 @@ const Login = () => {
         password: "",
       });
       toast.success("Login successful");
-      setTimeout(() => {
-        router.push("/user/profile");
-      }, 500);
+      router.push("/user/profile");
     } else {
       let err = response.error ?? "Error saving data";
       toast.error(err);

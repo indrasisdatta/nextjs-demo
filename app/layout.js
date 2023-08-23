@@ -1,8 +1,8 @@
 import Link from "next/link";
 import "./globals.css";
-import { Inter } from "next/font/google";
-
-const inter = Inter({ subsets: ["latin"] });
+import { loggedinUser } from "@/utils/helpers";
+// import { Inter } from "next/font/google";
+// const inter = Inter({ subsets: ["latin"] });
 
 export const metadata = {
   title: "Create Next App",
@@ -10,6 +10,8 @@ export const metadata = {
 };
 
 export default function RootLayout({ children }) {
+  const authUser = loggedinUser();
+
   return (
     <html lang="en">
       <body>
@@ -17,7 +19,9 @@ export default function RootLayout({ children }) {
           <header className="bg-gray-800 text-white p-4">
             <div className="container mx-auto">
               <nav className="flex items-center justify-between">
-                <div className="text-xl font-bold">Next.js Demo</div>
+                <div className="text-xl font-bold">
+                  <Link href="/">Next.js Demo</Link>
+                </div>
                 <ul className="flex space-x-4">
                   <li>
                     <Link href="/" className="hover:text-gray-300">
@@ -25,30 +29,57 @@ export default function RootLayout({ children }) {
                     </Link>
                   </li>
                   <li>
-                    <Link href="/teacher" className="hover:text-gray-300">
+                    <Link
+                      href="/examples/teacher"
+                      className="hover:text-gray-300"
+                    >
                       Teachers
                     </Link>
                   </li>
                   <li>
-                    <Link href="/student" className="hover:text-gray-300">
+                    <Link
+                      href="/examples/student"
+                      className="hover:text-gray-300"
+                    >
                       Students
                     </Link>
                   </li>
                   <li>
-                    <Link href="/todo" className="hover:text-gray-300">
+                    <Link href="/examples/todo" className="hover:text-gray-300">
                       To do
                     </Link>
                   </li>
-                  <li>
-                    <Link href="/user/login" className="hover:text-gray-300">
-                      Login
-                    </Link>
-                  </li>
-                  <li>
-                    <Link href="/user/signup" className="hover:text-gray-300">
-                      Sign up
-                    </Link>
-                  </li>
+                  {!authUser && (
+                    <li>
+                      <Link href="/user/login" className="hover:text-gray-300">
+                        Login
+                      </Link>
+                    </li>
+                  )}
+                  {!authUser && (
+                    <li>
+                      <Link href="/user/signup" className="hover:text-gray-300">
+                        Sign up
+                      </Link>
+                    </li>
+                  )}
+                  {authUser && (
+                    <li>
+                      <Link
+                        href="/user/profile"
+                        className="hover:text-gray-300"
+                      >
+                        Profile
+                      </Link>
+                    </li>
+                  )}
+                  {authUser && (
+                    <li>
+                      <Link href="/user/logout" className="hover:text-gray-300">
+                        Logout
+                      </Link>
+                    </li>
+                  )}
                 </ul>
               </nav>
             </div>

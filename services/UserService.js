@@ -17,3 +17,12 @@ export const signupData = async (userData) => {
     return e.response?.data;
   }
 };
+
+export const logoutData = async (userData) => {
+  try {
+    const response = await axios.get("/api/users/logout");
+    return response.data;
+  } catch (e) {
+    return e.response?.data;
+  }
+};
