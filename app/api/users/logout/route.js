@@ -1,7 +1,9 @@
 import { NextResponse } from "next/server";
+import { authGuard } from "../../authGuard";
 
 export const GET = () => {
   try {
+    authGuard();
     const response = NextResponse.json({
       status: 1,
       msg: "Logout success",

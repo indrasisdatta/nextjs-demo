@@ -18,7 +18,7 @@ export const loggedinUser = () => {
     // console.log("Decoded token", decodedToken);
     return decodedToken || null;
   } catch (e) {
-    console.error("Error fetching loggedinUser", e);
+    console.error("Error fetching loggedinUser", e.message);
     return null;
   }
 };
