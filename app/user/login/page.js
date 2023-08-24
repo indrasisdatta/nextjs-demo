@@ -1,4 +1,5 @@
 "use client";
+import { useAuth } from "@/hooks/useAuth";
 import { loginData } from "@/services/UserService";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -15,6 +16,8 @@ const Login = () => {
   });
   const [isSubmitted, setIsSubmitted] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
+
+  const { setAuthenticated } = useAuth();
 
   const hasError = (errorObj) => {
     return Object.values(errorObj).some((item) => !!item);
@@ -67,6 +70,7 @@ const Login = () => {
         password: "",
       });
       toast.success("Login successful");
+      setAuthenticated(true);
       router.push("/user/profile");
     } else {
       let err = response.error ?? "Error saving data";
@@ -153,7 +157,7 @@ const Login = () => {
                 <svg
                   aria-hidden="true"
                   role="status"
-                  class="inline w-4 h-4 mr-3 text-gray-200 animate-spin dark:text-gray-600"
+                  className="inline w-4 h-4 mr-3 text-gray-200 animate-spin dark:text-gray-600"
                   viewBox="0 0 100 101"
                   fill="none"
                   xmlns="http://www.w3.org/2000/svg"

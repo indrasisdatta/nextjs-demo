@@ -26,3 +26,12 @@ export const logoutData = async (userData) => {
     return e.response?.data;
   }
 };
+
+export const loggedinUserData = async () => {
+  try {
+    const response = await axios.get("/api/users/profile");
+    return response.data;
+  } catch (e) {
+    return e.response?.data;
+  }
+};

@@ -1,6 +1,7 @@
 import Link from "next/link";
 import "./globals.css";
-import { loggedinUser } from "@/utils/helpers";
+import HeaderMenu from "@/components/HeaderMenu";
+import { AuthProvider } from "@/hooks/useAuth";
 // import { Inter } from "next/font/google";
 // const inter = Inter({ subsets: ["latin"] });
 
@@ -10,90 +11,34 @@ export const metadata = {
 };
 
 export default function RootLayout({ children }) {
-  const authUser = loggedinUser();
-
   return (
     <html lang="en">
       <body>
-        <div className="flex flex-col min-h-screen">
-          <header className="bg-gray-800 text-white p-4">
-            <div className="container mx-auto">
-              <nav className="flex items-center justify-between">
-                <div className="text-xl font-bold">
-                  <Link href="/">Next.js Demo</Link>
-                </div>
-                <ul className="flex space-x-4">
-                  <li>
-                    <Link href="/" className="hover:text-gray-300">
-                      Home
-                    </Link>
-                  </li>
-                  <li>
-                    <Link
-                      href="/examples/teacher"
-                      className="hover:text-gray-300"
-                    >
-                      Teachers
-                    </Link>
-                  </li>
-                  <li>
-                    <Link
-                      href="/examples/student"
-                      className="hover:text-gray-300"
-                    >
-                      Students
-                    </Link>
-                  </li>
-                  <li>
-                    <Link href="/examples/todo" className="hover:text-gray-300">
-                      To do
-                    </Link>
-                  </li>
-                  {!authUser && (
-                    <li>
-                      <Link href="/user/login" className="hover:text-gray-300">
-                        Login
-                      </Link>
-                    </li>
-                  )}
-                  {!authUser && (
-                    <li>
-                      <Link href="/user/signup" className="hover:text-gray-300">
-                        Sign up
-                      </Link>
-                    </li>
-                  )}
-                  {authUser && (
-                    <li>
-                      <Link
-                        href="/user/profile"
-                        className="hover:text-gray-300"
-                      >
-                        Profile
-                      </Link>
-                    </li>
-                  )}
-                  {authUser && (
-                    <li>
-                      <Link href="/user/logout" className="hover:text-gray-300">
-                        Logout
-                      </Link>
-                    </li>
-                  )}
-                </ul>
-              </nav>
-            </div>
-          </header>
+        <AuthProvider>
+          <div className="flex flex-col min-h-screen">
+            <header className="bg-gray-800 text-white p-4">
+              <div className="container mx-auto">
+                <nav className="flex items-center justify-between">
+                  <div className="text-xl font-bold">
+                    <Link href="/">Next.js Demo</Link>
+                  </div>
+                  <HeaderMenu />
+                </nav>
+              </div>
+            </header>
 
-          <main className="flex-1 container mx-auto py-8 px-4">{children}</main>
+            <main className="flex-1 container mx-auto py-8 px-4">
+              {children}
+            </main>
 
-          <footer className="bg-gray-800 text-white p-4">
-            <div className="container mx-auto text-center">
-              &copy; {new Date().getFullYear()} Your Company. All rights
-              reserved.
-            </div>
-          </footer>
-        </div>
+            <footer className="bg-gray-800 text-white p-4">
+              <div className="container mx-auto text-center">
+                &copy; {new Date().getFullYear()} Your Company. All rights
+                reserved.
+              </div>
+            </footer>
+          </div>
+        </AuthProvider>
       </body>
     </html>
   );
