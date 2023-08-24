@@ -94,7 +94,7 @@ const Signup = () => {
       });
       toast.success("Sign up successful");
       setTimeout(() => {
-        router.push("/login");
+        router.push("/user/login");
       }, 1200);
     } else {
       let err = "Error saving data";
